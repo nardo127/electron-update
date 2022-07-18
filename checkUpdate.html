@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Electron Updater</title>
+</head>
+
+<body>
+    Current version: v<span id="version">1.0.0</span>
+    <div id="messages"></div>
+    <script>
+
+        // Listen for messages
+        const { ipcRenderer } = require('electron');
+
+        ipcRenderer.on('setVersion', (event, text) => {
+            document.getElementById('version').innerHTML = text;
+        });
+
+        ipcRenderer.on('notUpdate', (event, text) => {
+            returnToMainPage();
+        });
+
+        ipcRenderer.on('message', function (event, text) {
+            showMessage(text);
+        })
+
+        ipcRenderer.send("getVersion");
+        ipcRenderer.send("checkUpdate");
+
+        function showMessage(text) {
+            var container = document.getElementById('messages');
+            var message = document.createElement('div');
+            message.innerHTML = text;
+            container.appendChild(message);
+        }
+
+        function returnToMainPage() {
+            window.location.href = "./Assets/Client/index.html"
+        }
+    </script>
+</body>
+
+</html>
