@@ -70,7 +70,7 @@ ipcMain.on('checkUpdate', (event, text) => {
         sendStatusToWindow("message", 'notUpdate');
     }
     else {
-        sendStatusToWindow("message", isDev);
-        //    autoUpdater.checkForUpdates();
+        //sendStatusToWindow("message", isDev);
+        autoUpdater.checkForUpdates();
     }
 });
