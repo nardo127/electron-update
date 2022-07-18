@@ -71,6 +71,8 @@ ipcMain.on('checkUpdate', (event, text) => {
     }
     else {
         //sendStatusToWindow("message", isDev);
-        autoUpdater.checkForUpdates();
+        autoUpdater.checkForUpdatesAndNotify();
     }
 });
+
+//  [Environment]::SetEnvironmentVariable("GH_TOKEN","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","User")

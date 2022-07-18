@@ -1,14 +1,15 @@
 {
   "name": "electron-update",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Electron updater example",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "publish": "electron-builder -p always"
+    "release": "cross-env GH_TOKEN=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 electron-builder",
+    "publish": "electron-builder --win -p always"
   },
   "author": "",
   "license": "ISC",
@@ -18,7 +19,7 @@
   },
   "dependencies": {
     "electron-is-dev": "^2.0.0",
-    "electron-updater": "^5.0.5"
+    "electron-updater": "^4.6.5"
   },
   "build": {
     "appId": "com.updater.app",
@@ -26,20 +27,25 @@
     "directories": {
       "output": "build/win"
     },
-    "mac": {
-      "category": "com.updater.app"
-    },
     "win": {
-      "target": "nsis"
+      "target": [
+        "nsis"
+      ]
     },
     "nsis": {
-      "oneClick": false
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
     },
-    "publish": [{
-      "provider": "github",
-      "owner": "nardo127",
-      "repo": "electron-update"
-    }]
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "nardo127",
+        "repo": "electron-update",
+        "releaseType": "release",
+        "private": true,
+        "token": "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"
+      }
+    ]
   }
-  
 }
