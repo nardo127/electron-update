@@ -7,21 +7,39 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "publish": "electron-builder -p always"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "electron": "^19.0.8",
-    "electron-builder": "^23.1.0",
+    "electron-builder": "^23.1.0"
+  },
+  "dependencies": {
     "electron-is-dev": "^2.0.0",
     "electron-updater": "^5.0.5"
   },
   "build": {
-    "appId": "com.minds2.app",
-    "icon": "Assets/Client/image/hkoicon.png",
+    "appId": "com.updater.app",
+    "productName": "Electron Updater Example",
+    "directories": {
+      "output": "build/win"
+    },
     "mac": {
-      "category": "com.minds2.app"
-    }
+      "category": "com.updater.app"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false
+    },
+    "publish": [{
+      "provider": "github",
+      "owner": "nardo127",
+      "repo": "electron-update"
+    }]
   }
+  
 }
