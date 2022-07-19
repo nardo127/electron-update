@@ -1,6 +1,6 @@
 {
   "name": "electron-update",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Electron updater example",
   "main": "main.js",
   "scripts": {
@@ -8,7 +8,6 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "release": "cross-env GH_TOKEN=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 electron-builder",
     "publish": "electron-builder --win -p always"
   },
   "author": "",

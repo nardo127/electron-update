@@ -8,6 +8,8 @@
 <body>
     Current version: v<span id="version">1.0.0</span>
     <div id="messages"></div>
+    <br/>
+    <div id="progress"></div>
     <script>
 
         // Listen for messages
@@ -17,26 +19,40 @@
             document.getElementById('version').innerHTML = text;
         });
 
-        ipcRenderer.on('notUpdate', (event, text) => {
+        ipcRenderer.on('updater-notUpdate', function (event, text) {
             returnToMainPage();
-        });
+        })
 
-        ipcRenderer.on('message', function (event, text) {
+        ipcRenderer.on('updater-message', function (event, text) {
             showMessage(text);
+        })
+
+        ipcRenderer.on('updater-lastest', function (event, text) {
+            showMessage(text);
+            setTimeout(function () {
+                returnToMainPage();
+            }, 500)
+        })
+
+        ipcRenderer.on('updater-showProgress', function (event, progress) {
+            let progressMsg = document.getElementById('progress')
+            let percentage = Math.round((progress.transferred / progress.total) * 100);
+            progressMsg.innerHTML = "Downloading ... (" + percentage + ")%"; 
         })
 
         ipcRenderer.send("getVersion");
         ipcRenderer.send("checkUpdate");
 
         function showMessage(text) {
-            var container = document.getElementById('messages');
-            var message = document.createElement('div');
+            let container = document.getElementById('messages');
+            let message = document.createElement('div');
             message.innerHTML = text;
             container.appendChild(message);
         }
 
         function returnToMainPage() {
-            window.location.href = "./Assets/Client/index.html"
+            //window.location.href = "./Assets/Client/index.html"
+            window.location.href = "./index.html"
         }
     </script>
 </body>

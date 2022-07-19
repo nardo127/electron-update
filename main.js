@@ -32,23 +32,23 @@ function sendStatusToWindow(status, params) {
 }
 
 autoUpdater.on('checking-for-update', () => {
-    sendStatusToWindow("message", 'Checking for update...');
+    sendStatusToWindow("updater-message", 'Checking for update...');
 });
 
 autoUpdater.on('update-available', (ev, info) => {
-    sendStatusToWindow("message", 'Update available.');
+    sendStatusToWindow("updater-message", 'New version found.');
 });
 
 autoUpdater.on('update-not-available', (ev, info) => {
-    sendStatusToWindow("message", 'Update not available.');
+    sendStatusToWindow("updater-lastest", 'This is the lastest version. Returning to login page ...');
 });
 
 autoUpdater.on('error', (ev, err) => {
-    sendStatusToWindow("message", 'Error in auto-updater.');
+    sendStatusToWindow("updater-error", 'Error in auto-updater.');
 });
 
 autoUpdater.on('download-progress', (ev, progressObj) => {
-    sendStatusToWindow("message", 'Download progress...');
+    sendStatusToWindow("updater-showProgress", progressObj);
 });
 
 autoUpdater.on('update-downloaded', (ev, info) => {
@@ -57,17 +57,17 @@ autoUpdater.on('update-downloaded', (ev, info) => {
     // You could call autoUpdater.quitAndInstall(); immediately
     setTimeout(function () {
         autoUpdater.quitAndInstall();
-    }, 5000)
+    }, 1000)
 })
 
 ipcMain.on('getVersion', (event, text) => {
-    event.reply('setVersion', app.getVersion());
+    sendStatusToWindow('setVersion', app.getVersion());
 });
 
 ipcMain.on('checkUpdate', (event, text) => {
     if (isDev) {
         //event.reply('notUpdate')
-        sendStatusToWindow("message", 'notUpdate');
+        sendStatusToWindow("updater-notUpdate", '');
     }
     else {
         //sendStatusToWindow("message", isDev);
