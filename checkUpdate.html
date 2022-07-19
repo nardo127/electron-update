@@ -30,6 +30,7 @@
         ipcRenderer.on('updater-lastest', function (event, text) {
             showMessage(text);
             setTimeout(function () {
+                showMessage("Redirect to login page ...");
                 returnToMainPage();
             }, 500)
         })

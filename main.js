@@ -40,7 +40,7 @@ autoUpdater.on('update-available', (ev, info) => {
 });
 
 autoUpdater.on('update-not-available', (ev, info) => {
-    sendStatusToWindow("updater-lastest", 'This is the lastest version. Returning to login page ...');
+    sendStatusToWindow("updater-lastest", 'This is the lastest version.');
 });
 
 autoUpdater.on('error', (ev, err) => {
