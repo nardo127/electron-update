@@ -9,7 +9,9 @@
     Current version: v<span id="version">1.0.0</span>
     <div id="messages"></div>
     <br/>
-    <div id="progress"></div>
+    <div>
+        <span id="progress"></span>
+    </div>
     <script>
 
         // Listen for messages
@@ -32,13 +34,11 @@
             setTimeout(function () {
                 showMessage("Redirect to login page ...");
                 returnToMainPage();
-            }, 500)
+            }, 1000)
         })
 
-        ipcRenderer.on('updater-showProgress', function (event, progress) {
-            let progressMsg = document.getElementById('progress')
-            let percentage = Math.round((progress.transferred / progress.total) * 100);
-            progressMsg.innerHTML = "Downloading ... (" + percentage + ")%"; 
+        ipcRenderer.on('updater-showProgress', function (event, text) {
+            document.getElementById('progress').innerHTML = text; 
         })
 
         ipcRenderer.send("getVersion");
